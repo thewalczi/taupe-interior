@@ -1,0 +1,66 @@
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+body {
+  background-color: #a0937d;
+  background-image: url("./static/photo-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+  position: relative;
+}
+
+body:after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #a0937d;
+  opacity: 0.8;
+  z-index: -1;
+}
+
+#root:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  width: 0;
+}
+.App {
+  text-align: center;
+  vertical-align: middle;
+  margin: 0 auto;
+  display: inline-block;
+  padding: 16px;
+  color: white;
+  font-family: sans-serif;
+}
+
+.logo {
+  max-width: 200px;
+  pointer-events: none;
+}
+
+h3 {
+  font-size: 38px;
+  font-weight: 200;
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: 200;
+}
+
+p {
+  font-size: 20px;
+}
