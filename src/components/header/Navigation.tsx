@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { breakpointStep, mediaQuery } from '../../helpers/breakpoints';
-import { useCallback, useRef } from 'react';
+import { useCallback, useState } from 'react';
 import { Socials } from './Socials';
 import { useResize } from '../../hooks/useResize';
+import { MenuButton } from './MenuButton';
 
 interface NavItem {
   id: string;
@@ -28,19 +29,21 @@ const navItems: NavItem[] = [
   },
 ];
 
-const MenuBtn = styled.button`
-  border: 2px solid red;
-`;
 const Nav = styled.nav`
   position: absolute;
   top: 100%;
   right: 100%;
   width: 100%;
-  height: 70vh;
-  background-color: #a0937d;
+  padding-bottom: 3.2rem;
+  background-color: #a1988f;
   transition: right 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 2.8rem;
 
-  ${mediaQuery.md`
+  ${mediaQuery.lg`
+    flex-direction: column-reverse;
+    align-items: end;
     position: static;  
     height: auto;
     flex: 1 1 50%;
@@ -58,10 +61,13 @@ const NavList = styled.ul`
   flex: 1 1 50%;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  ${mediaQuery.md`
+  gap: 1.2rem;
+  text-align: center;
+
+  ${mediaQuery.lg`
     flex-direction: row;
     justify-content: flex-end;
+    margin-right: -1.6rem;
     `}
 `;
 
@@ -69,9 +75,14 @@ const NavItem = styled.li`
   color: white;
   font-size: 2.4rem;
   font-weight: 400;
-  padding: 0.8rem 1.6rem;
+  padding: 1.6rem;
   line-height: 2.4rem;
   transition: color 0.2s;
+  white-space: nowrap;
+
+  ${mediaQuery.lg`
+    padding: 0.8rem 1.6rem;
+   `}
 
   &:hover {
     color: #b6c7aa;
@@ -80,26 +91,23 @@ const NavItem = styled.li`
 `;
 
 export const Navigation = () => {
-  const navRef = useRef<HTMLDivElement>(null);
-
   const { width } = useResize();
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const handleToggleMenu = useCallback(() => {
-    if (navRef.current) {
-      navRef.current.classList.toggle('menu--open');
-    }
+    setIsMenuOpen((prev: boolean) => !prev);
   }, []);
 
   return (
     <>
-      {width > breakpointStep.md ? null : <MenuBtn onClick={handleToggleMenu}>Menu</MenuBtn>}
-      <Nav ref={navRef}>
+      {width >= breakpointStep.lg ? null : <MenuButton onClick={handleToggleMenu} active={isMenuOpen} />}
+      <Nav className={isMenuOpen ? 'menu--open' : ''}>
         <NavList>
           {navItems.map((item: NavItem, i: number) => (
             <NavItem key={`${item.id}_${i}`}>{item.label}</NavItem>
           ))}
         </NavList>
-        {width > breakpointStep.md ? null : <Socials />}
+        <Socials />
       </Nav>
     </>
   );
