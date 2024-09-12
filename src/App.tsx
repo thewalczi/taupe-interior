@@ -1,10 +1,13 @@
 import { Header } from './components/header/Header';
+import { HomePage } from './pages/Home/Home.page';
 
 function App() {
   return (
     <>
-      <Header />;<div style={{ width: '100%', height: '800px', backgroundColor: '#F6E6CB' }}>section1</div>
-      <div style={{ width: '100%', height: '800px', backgroundColor: '#E7D4B5' }}>section2</div>
+      <Header />
+      {/* <HomePage /> */}
+      <div style={{ width: '100%', height: '800px', backgroundColor: '#efefef' }}>section2</div>
+      <div style={{ width: '100%', height: '800px', backgroundColor: 'lightblue' }}>section2</div>
     </>
   );
 }
