@@ -39,7 +39,7 @@ const Nav = styled.nav`
   transition: right 0.3s;
   display: flex;
   flex-direction: column;
-  gap: 2.8rem;
+  gap: 1.2rem;
 
   ${mediaQuery.lg`
     flex-direction: column-reverse;
@@ -47,6 +47,7 @@ const Nav = styled.nav`
     position: static;  
     height: auto;
     flex: 1 1 50%;
+    padding-bottom: 0;
   `}
 
   &.menu--open {
@@ -73,7 +74,7 @@ const NavList = styled.ul`
 
 const NavItem = styled.li`
   color: white;
-  font-size: 2.4rem;
+  font-size: 1.8rem;
   font-weight: 400;
   padding: 1.6rem;
   line-height: 2.4rem;

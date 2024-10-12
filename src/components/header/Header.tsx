@@ -15,7 +15,7 @@ const Container = styled.header`
   box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.5);
 
   ${mediaQuery.lg`
-    padding: 2.4rem 8rem;
+    padding: 1.6rem 8rem;
   `}
 `;
 
@@ -34,13 +34,13 @@ const Wrapper = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 10rem;
-  height: 10rem;
+  width: 8rem;
+  height: 8rem;
   flex: 0 0 auto;
 
   ${mediaQuery.lg`
-    width: 15rem;
-    height: 15rem;
+    width: 10rem;
+    height: 10rem;
   `}
 `;
 
