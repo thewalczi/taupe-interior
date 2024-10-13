@@ -8,15 +8,11 @@ const Container = styled.header`
   background: #a1988f;
   width: 100%;
   position: fixed;
-  padding: 1.6rem;
+  padding: var(--headerPaddingVertical) var(--headerPaddingHorizontal);
   top: 0px;
   transition: top 0.3s;
   z-index: 10;
   box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.5);
-
-  ${mediaQuery.lg`
-    padding: 1.6rem 8rem;
-  `}
 `;
 
 const Wrapper = styled.div`
@@ -34,14 +30,9 @@ const Wrapper = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 8rem;
-  height: 8rem;
+  width: var(--headerLogoSize);
+  height: var(--headerLogoSize);
   flex: 0 0 auto;
-
-  ${mediaQuery.lg`
-    width: 10rem;
-    height: 10rem;
-  `}
 `;
 
 export const Header = () => {

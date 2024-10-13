@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import background from './../../assets/sypialnia1_crop.jpg';
 import background3 from './../../assets/sypialnia3.jpg';
+import { mediaQuery } from '../../helpers/breakpoints';
 
 export const HomePage = () => {
   const Container = styled.div`
@@ -31,38 +32,78 @@ export const HomePage = () => {
   const Wrapper = styled.div`
     max-width: 144rem;
     width: 100%;
-    margin: 0 auto;
     position: relative;
     z-index: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    grid-template-areas: 'upper .' '. lower';
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    padding: 1.6rem;
+    margin-top: calc(var(--headerLogoSize) + var(--headerPaddingVertical));
+
+    ${mediaQuery.sm`
+      gap: 0;
+    `}
+
+    ${mediaQuery.lg`
+      display: grid;
+      grid-template-areas: 'upper .' '. lower';
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      `}
   `;
 
-  const Text = styled.h1.attrs<{ $gridArea: string; $textAlign: 'left' | 'right' | 'center' }>((props) => ({
-    $gridArea: props.$gridArea || 'auto',
-    $textAlign: props.$textAlign || 'center',
-  }))`
+  const Text = styled.h1`
     color: white;
-    font-size: 10rem;
+    font-size: 5.4rem;
     font-weight: 300;
     line-height: 90%;
-    grid-area: ${(props) => props.$gridArea};
-    margin: 0 auto;
-    text-align: ${(props) => props.$textAlign};
-    width: 100%;
+    margin: 0;
+    text-align: left;
+
+    ${mediaQuery.sm`
+      font-size: 6.8rem;
+      
+      &.left {
+        text-align: right;
+        align-self: start;
+      }
+      &.right {
+        text-align: left;
+        align-self: end;
+      }
+    `}
+
+    ${mediaQuery.md`
+      font-size: 7.2rem;
+      `}
+      
+    ${mediaQuery.lg`
+      &.left {
+        grid-area: upper;
+        text-align: right;
+        align-self: end;
+        }
+      &.right {
+        grid-area: lower;
+        text-align: left;
+        align-self: start;
+      }  
+    `}
+          
+    ${mediaQuery.xl`
+      font-size: 8rem;
+    `}
   `;
 
   return (
     <Container>
       <Wrapper>
-        <Text $gridArea="upper" $textAlign="right">
-          projektowanie wnętrz
+        <Text className="left">
+          projektowanie
+          <br />
+          wnętrz
         </Text>
-        <Text $gridArea="lower" $textAlign="left">
-          homestaging
-        </Text>
+        <Text className="right">homestaging</Text>
       </Wrapper>
     </Container>
   );
