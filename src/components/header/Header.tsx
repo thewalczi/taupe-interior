@@ -33,6 +33,7 @@ const Logo = styled.img`
   width: var(--headerLogoSize);
   height: var(--headerLogoSize);
   flex: 0 0 auto;
+  cursor: pointer;
 `;
 
 export const Header = () => {
@@ -60,7 +61,7 @@ export const Header = () => {
   return (
     <Container>
       <Wrapper>
-        <Logo src={logo} />
+        <Logo src={logo} onClick={() => window.location.replace('/')} />
         <Navigation />
       </Wrapper>
     </Container>

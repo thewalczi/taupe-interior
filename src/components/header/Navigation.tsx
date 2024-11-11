@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { breakpointStep, mediaQuery } from '../../helpers/breakpoints';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Socials } from './Socials';
 import { useResize } from '../../hooks/useResize';
 import { MenuButton } from './MenuButton';
@@ -16,8 +16,8 @@ const navItems: NavItem[] = [
     label: 'O mnie',
   },
   {
-    id: 'projects',
-    label: 'Projekty',
+    id: 'portfolio',
+    label: 'Portfolio',
   },
   {
     id: 'offer',
@@ -99,13 +99,34 @@ export const Navigation = () => {
     setIsMenuOpen((prev: boolean) => !prev);
   }, []);
 
+  const scrollToSection = useCallback((id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
+  useEffect(() => {
+    const anchor = window.location.hash;
+    const timeout = setTimeout(() => {
+      const id = anchor.slice(1);
+      scrollToSection(id);
+    }, 500);
+    if (anchor) {
+      timeout;
+    }
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
     <>
       {width >= breakpointStep.lg ? null : <MenuButton onClick={handleToggleMenu} active={isMenuOpen} />}
       <Nav className={isMenuOpen ? 'menu--open' : ''}>
         <NavList>
           {navItems.map((item: NavItem, i: number) => (
-            <NavItem key={`${item.id}_${i}`}>{item.label}</NavItem>
+            <NavItem key={`${item.id}_${i}`} onClick={() => scrollToSection(item.id)}>
+              {item.label}
+            </NavItem>
           ))}
         </NavList>
         <Socials />
