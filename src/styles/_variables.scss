@@ -1,0 +1,13 @@
+@use 'mixins' as *;
+:root {
+  --color-primary: #a1988f;
+  --color-secondary: #b6c7aa;
+  --headerPaddingVertical: 1.6rem;
+  --headerPaddingHorizontal: 1.6rem;
+  --headerLogoSize: 8rem;
+
+  @include breakpoint('lg') {
+    --headerPaddingHorizontal: 8rem;
+    --headerLogoSize: 10rem;
+  }
+}

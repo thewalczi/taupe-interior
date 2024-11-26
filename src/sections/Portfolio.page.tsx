@@ -5,7 +5,7 @@ import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 
 interface Project {
-  id: string;
+  id: number;
   title: string;
   description: string;
   images: string[];
@@ -13,7 +13,7 @@ interface Project {
 
 const projects: Project[] = [
   {
-    id: '1',
+    id: 1,
     title: 'Project 1',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
     images: [
@@ -27,7 +27,7 @@ const projects: Project[] = [
     ],
   },
   {
-    id: '2',
+    id: 2,
     title: 'Project 2',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
     images: [
@@ -41,19 +41,19 @@ const projects: Project[] = [
     ],
   },
   {
-    id: '3',
+    id: 3,
     title: 'Project 3',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
     images: ['https://picsum.photos/200/300?random=3'],
   },
   {
-    id: '4',
+    id: 4,
     title: 'Project 4',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
     images: ['https://picsum.photos/200/300?random=4'],
   },
   {
-    id: '5',
+    id: 5,
     title: 'Project 5',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
     images: ['https://picsum.photos/200/300?random=5'],
@@ -174,6 +174,55 @@ const Project = styled.div`
   }
 `;
 
+const Header = styled.div`
+  padding: 3.2rem 0;
+  font-size: 2rem;
+  display: flex;
+  gap: 2.4rem;
+  align-items: top;
+
+  button {
+    background-color: var(--color-secondary);
+    color: white;
+    border: none;
+    // padding: 1.6rem 2.4rem;
+    cursor: pointer;
+    width: 6.4rem;
+    height: 6.4rem;
+    padding: 0;
+    flex: 0 0 auto;
+
+    > img {
+      height: 3.2rem;
+    }
+  }
+  p {
+    flex: 1 1 auto;
+    margin: 0;
+  }
+`;
+const Gallery = styled.div`
+  display: grid;
+  gap: 3.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  // grid-auto-rows: 200px;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ImageWrapper = styled.div`
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+`;
+
 export const PortfolioPage = () => {
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [lightboxOpenIndex, setLightboxOpenIndex] = useState<number | null>(null);
@@ -207,15 +256,20 @@ export const PortfolioPage = () => {
           ))}
         </Grid>
         <Project>
-          <p>{activeProject?.description}</p>
-          {activeProject?.images.map((image, i) => (
-            <img
-              key={`project-${activeProject.id}_${image}`}
-              src={image}
-              alt={activeProject.title}
-              onClick={() => setLightboxOpenIndex(i)}
-            />
-          ))}
+          <Header>
+            <button onClick={() => setActiveProject(null)}>
+              <img src="./src/utils/caret.svg" alt="Go back icon" />
+            </button>
+
+            <p>{activeProject?.description}</p>
+          </Header>
+          <Gallery>
+            {activeProject?.images.map((image, i) => (
+              <ImageWrapper key={`project-${activeProject.id}_${image}`}>
+                <img src={image} alt={activeProject.title} onClick={() => setLightboxOpenIndex(i)} />
+              </ImageWrapper>
+            ))}
+          </Gallery>
           <Lightbox
             open={!!lightboxOpenIndex}
             close={() => setLightboxOpenIndex(null)}

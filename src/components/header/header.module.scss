@@ -1,0 +1,40 @@
+@use '@/styles/mixins' as *;
+
+.container {
+  background-color: transparent;
+  width: 100%;
+  position: fixed;
+  padding: var(--headerPaddingVertical) var(--headerPaddingHorizontal);
+  top: 0px;
+  z-index: 10;
+  box-shadow: none;
+  transition:
+    background-color 0.3s,
+    box-shadow 0.3s,
+    top 0.3s;
+
+  &--scrolled {
+    background: var(--color-primary);
+    box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.5);
+  }
+}
+
+.wrapper {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @include breakpoint('lg') {
+    justify-content: center;
+    max-width: 144rem;
+    align-items: flex-start;
+  }
+}
+.logo {
+  width: var(--headerLogoSize);
+  height: var(--headerLogoSize);
+  flex: 0 0 auto;
+  cursor: pointer;
+}

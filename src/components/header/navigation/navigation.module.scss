@@ -1,0 +1,63 @@
+@use '@/styles/mixins' as *;
+
+.container {
+  position: absolute;
+  top: 100%;
+  right: 100%;
+  width: 100%;
+  padding-bottom: 3.2rem;
+  background-color: #a1988f;
+  transition: right 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  @include breakpoint('lg') {
+    flex-direction: column-reverse;
+    align-items: end;
+    position: static;
+    height: auto;
+    flex: 1 1 50%;
+    padding-bottom: 0;
+  }
+
+  &.menu--open {
+    right: 0%;
+  }
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  text-align: center;
+
+  @include breakpoint('lg') {
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-right: -1.6rem;
+  }
+}
+
+li {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 400;
+  padding: 1.6rem;
+  line-height: 2.4rem;
+  transition: color 0.2s;
+  white-space: nowrap;
+
+  @include breakpoint('lg') {
+    padding: 0.8rem 1.6rem;
+  }
+
+  &:hover {
+    color: #b6c7aa;
+    cursor: pointer;
+  }
+}

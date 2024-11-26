@@ -1,40 +1,7 @@
 import { useEffect } from 'react';
-import styled from 'styled-components';
 import logo from '../../assets/logo.svg';
-import { Navigation } from './Navigation';
-import { mediaQuery } from '../../helpers/breakpoints';
-
-const Container = styled.header`
-  background: #a1988f;
-  width: 100%;
-  position: fixed;
-  padding: var(--headerPaddingVertical) var(--headerPaddingHorizontal);
-  top: 0px;
-  transition: top 0.3s;
-  z-index: 10;
-  box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.5);
-`;
-
-const Wrapper = styled.div`
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  ${mediaQuery.lg`
-    justify-content: center;
-    max-width: 144rem;
-    align-items: flex-start;
-  `}
-`;
-
-const Logo = styled.img`
-  width: var(--headerLogoSize);
-  height: var(--headerLogoSize);
-  flex: 0 0 auto;
-  cursor: pointer;
-`;
+import { Navigation } from './navigation/Navigation';
+import styles from './header.module.scss';
 
 export const Header = () => {
   useEffect(() => {
@@ -48,6 +15,12 @@ export const Header = () => {
         } else {
           header.style.top = '-200px';
         }
+        console.log(prevScrollPos, currentScrollPos);
+        if (currentScrollPos < header.clientHeight) {
+          header.classList.remove(styles['container--scrolled']);
+        } else {
+          header.classList.add(styles['container--scrolled']);
+        }
         prevScrollPos = currentScrollPos;
       }
     };
@@ -59,11 +32,11 @@ export const Header = () => {
   }, []);
 
   return (
-    <Container>
-      <Wrapper>
-        <Logo src={logo} onClick={() => window.location.replace('/')} />
+    <header className={styles.container}>
+      <div className={styles.wrapper}>
+        <img className={styles.logo} src={logo} onClick={() => window.location.replace('/')} />
         <Navigation />
-      </Wrapper>
-    </Container>
+      </div>
+    </header>
   );
 };
