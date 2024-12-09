@@ -1,5 +1,5 @@
 import { breakpointStep } from '../../../helpers/breakpoints';
-import { useCallback, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { Socials } from '../Socials';
 import { useResize } from '../../../hooks/useResize';
 import { MenuButton } from '../menuButton/MenuButton';
@@ -8,6 +8,11 @@ import styles from './navigation.module.scss';
 interface NavItem {
   id: string;
   label: string;
+}
+
+interface NavigationProps {
+  isMenuOpen: boolean;
+  setIsMenuOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const navItems: NavItem[] = [
@@ -29,14 +34,12 @@ const navItems: NavItem[] = [
   },
 ];
 
-export const Navigation = () => {
+export const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
   const { width } = useResize();
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   const handleToggleMenu = useCallback(() => {
-    console.log('clicked');
     setIsMenuOpen((prev: boolean) => !prev);
-  }, []);
+  }, [setIsMenuOpen]);
 
   const scrollToSection = useCallback((id: string) => {
     const element = document.getElementById(id);
