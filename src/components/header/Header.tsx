@@ -17,7 +17,6 @@ export const Header = () => {
         } else {
           header.style.top = '-150px';
         }
-        console.log(prevScrollPos, currentScrollPos);
         if (currentScrollPos < header.clientHeight) {
           header.classList.remove(styles['container--scrolled']);
         } else {

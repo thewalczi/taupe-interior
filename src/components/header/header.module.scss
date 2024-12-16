@@ -1,10 +1,22 @@
 @use '@/styles/mixins' as *;
 
+:root {
+  --header__padding-vertical: 1.6rem;
+  --header-logo__size: 8rem;
+  & {
+    --header__height: calc(var(--header__padding-vertical) * 2 + var(--header-logo__size));
+  }
+
+  @include breakpoint('lg') {
+    --header-logo__size: 10rem;
+  }
+}
+
 .container {
   background-color: transparent;
   width: 100%;
   position: fixed;
-  padding: var(--headerPaddingVertical) var(--headerPaddingHorizontal);
+  padding: var(--header__padding-vertical) var(--container__padding-horizontal);
   top: 0px;
   z-index: 10;
   box-shadow: none;
@@ -33,8 +45,8 @@
   }
 }
 .logo {
-  width: var(--headerLogoSize);
-  height: var(--headerLogoSize);
+  width: var(--header-logo__size);
+  height: var(--header-logo__size);
   flex: 0 0 auto;
   cursor: pointer;
 }

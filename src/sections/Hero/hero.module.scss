@@ -1,17 +1,54 @@
 .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
   position: relative;
+  padding: var(--header__height) var(--container__padding-horizontal) 0;
 
   &:before {
     content: url('@/utils/corner.svg');
     width: 40%;
-    // height: 15rem;
     position: absolute;
     top: 0;
     right: 0;
+  }
+
+  &:after {
+    content: url('@/utils/lines.svg');
+    width: 90%;
+    position: absolute;
+    top: 60%;
+    right: 30%;
+  }
+
+  .title {
+    color: white;
+    font-weight: 300;
+    position: absolute;
+    top: max(20%, var(--header__height));
+    z-index: 1;
+    line-height: 4rem;
+
+    > i {
+      font-weight: 500;
+    }
+
+    > span {
+      font-family: var(--serif-font);
+      font-size: 95%;
+      font-style: italic;
+    }
+  }
+
+  .image {
+    width: 37.5rem;
+    height: 37.5rem;
+    background-image: url('@/assets/bathroom1.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    position: absolute;
+    top: 60%;
+    right: -25%;
+    transform: translate(0, -50%);
   }
 }
