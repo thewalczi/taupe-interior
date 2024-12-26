@@ -17,7 +17,7 @@ export const Header = () => {
         } else {
           header.style.top = '-150px';
         }
-        if (currentScrollPos < header.clientHeight) {
+        if (currentScrollPos < 50) {
           header.classList.remove(styles['container--scrolled']);
         } else {
           header.classList.add(styles['container--scrolled']);

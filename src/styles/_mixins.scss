@@ -15,5 +15,9 @@
     @media (min-width: 1200px) {
       @content;
     }
+  } @else if $point == 'xxl' {
+    @media (min-width: 1921px) {
+      @content;
+    }
   }
 }

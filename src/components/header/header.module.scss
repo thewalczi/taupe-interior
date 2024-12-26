@@ -40,7 +40,7 @@
 
   @include breakpoint('lg') {
     justify-content: space-between;
-    max-width: 144rem;
+    max-width: var(--container__max-width);
     align-items: center;
   }
 }
