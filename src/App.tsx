@@ -1,8 +1,6 @@
-import styled from 'styled-components';
 import { Header } from './components/header/Header';
 import { HeroPage } from './sections/Hero/Hero.page';
-import { mediaQuery } from './helpers/breakpoints';
-import { PortfolioPage } from './sections/Portfolio.page';
+import { PortfolioPage } from './sections/Portfolio/Portfolio.page';
 import { AboutPage } from './sections/About/About.page';
 
 function App() {
@@ -11,7 +9,7 @@ function App() {
       <Header />
       <HeroPage />
       <AboutPage />
-      {/* <PortfolioPage /> */}
+      <PortfolioPage />
       <div style={{ width: '100%', height: '800px', backgroundColor: '#efefef' }}>section2</div>
       <div style={{ width: '100%', height: '800px', backgroundColor: 'lightblue' }}>section2</div>
     </>
