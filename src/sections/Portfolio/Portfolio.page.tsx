@@ -14,7 +14,8 @@ const projects: Project[] = [
   {
     id: 1,
     title: 'Project 1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus.',
     images: [
       'https://picsum.photos/200/300?random=1',
       'https://picsum.photos/200/300?random=2',
@@ -89,6 +90,7 @@ export const PortfolioPage = () => {
   return (
     <section className={styles.container}>
       <div className={styles.wrapper} id={'portfolio'}>
+        <h2>Portfolio</h2>
         {!activeProject ? (
           <div className={styles.grid} key={'grid'}>
             {projects.map((project) => (
