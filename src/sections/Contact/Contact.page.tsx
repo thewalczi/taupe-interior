@@ -1,7 +1,35 @@
 import React from 'react';
 import styles from './contact.module.scss';
+import { useForm } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const messageSchema = z.object({
+  name: z.string().min(3, 'To pole musi mieć co najmniej 3 znaki'),
+  email: z.string().email('Podaj poprawny adres email'),
+  message: z
+    .string()
+    .min(10, 'Wiadomość musi mieć co najmniej 10 znaków')
+    .max(500, 'Wiadomość może mieć maksymalnie 500 znaków'),
+});
 
 export const ContactPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: zodResolver(messageSchema),
+  });
+
+  const onSubmit = async (data: FieldValues) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    alert(data.name);
+    reset();
+  };
+
   return (
     <section className={styles.container}>
       <div className={styles.wrapper}>
@@ -19,18 +47,21 @@ export const ContactPage = () => {
             </div>
           </div>
         </div>
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles['form-group']}>
             <label htmlFor="name">Imię i nazwisko / Firma</label>
-            <input type="text" id="name" name="name" required />
+            <input {...register('name')} type="text" id="name" name="name" required />
+            {errors.name && <p>{`${errors.name.message}`}</p>}
           </div>
           <div className={styles['form-group']}>
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" required />
+            <input {...register('email')} type="email" id="email" name="email" required />
+            {errors.email && <p>{`${errors.email.message}`}</p>}
           </div>
           <div className={styles['form-group']}>
             <label htmlFor="message">Wiadomość</label>
-            <textarea id="message" name="message" required />
+            <textarea {...register('message')} id="message" name="message" required />
+            {errors.message && <p>{`${errors.message.message}`}</p>}
           </div>
           <button type="submit">Wyślij</button>
         </form>
