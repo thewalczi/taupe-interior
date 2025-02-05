@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styles from './contact.module.scss';
 import { useForm } from 'react-hook-form';
 import type { FieldValues } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import emailjs from '@emailjs/browser';
 
 const messageSchema = z.object({
   name: z.string().min(3, 'To pole musi mieć co najmniej 3 znaki'),
@@ -15,6 +16,7 @@ const messageSchema = z.object({
 });
 
 export const ContactPage = () => {
+  const formRef = useRef<HTMLFormElement>(null);
   const {
     register,
     handleSubmit,
@@ -24,10 +26,24 @@ export const ContactPage = () => {
     resolver: zodResolver(messageSchema),
   });
 
+  useEffect(() => {
+    emailjs.init({
+      publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+    });
+  }, []);
+
   const onSubmit = async (data: FieldValues) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    alert(data.name);
-    reset();
+    if (formRef.current === null) return;
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    try {
+      await emailjs.sendForm(serviceId, templateId, formRef.current, publicKey);
+      reset();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -47,7 +63,7 @@ export const ContactPage = () => {
             </div>
           </div>
         </div>
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)} ref={formRef}>
           <div className={styles['form-group']}>
             <label htmlFor="name">Imię i nazwisko / Firma</label>
             <input {...register('name')} type="text" id="name" name="name" required />
