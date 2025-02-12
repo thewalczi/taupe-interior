@@ -121,9 +121,9 @@ export const PortfolioPage = () => {
               ))}
             </div>
             <Lightbox
-              open={!!lightboxOpenIndex}
+              open={lightboxOpenIndex !== null}
               close={() => setLightboxOpenIndex(null)}
-              index={lightboxOpenIndex || 0}
+              index={lightboxOpenIndex ?? 0}
               slides={activeProject?.images.map((image) => ({ src: image }))}
               controller={{ closeOnBackdropClick: true }}
             />
