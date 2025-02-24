@@ -3,7 +3,7 @@ import styles from './about.module.scss';
 
 export const AboutPage = () => {
   return (
-    <section className={styles.container}>
+    <section className={styles.container} id={'about'}>
       <div className={styles.wrapper}>
         <div className={styles.avatar} />
         <p className={styles.text}>

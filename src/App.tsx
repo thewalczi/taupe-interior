@@ -12,7 +12,6 @@ function App() {
       <AboutPage />
       <PortfolioPage />
       <ContactPage />
-      {/* <div style={{ width: '100%', height: '800px', backgroundColor: 'lightblue' }}>section2</div> */}
     </>
   );
 }

@@ -24,6 +24,7 @@
     flex: 0 0;
     padding: 0;
     transform: translateY(0%);
+    z-index: 0;
     background-color: transparent;
     gap: 3.2rem;
   }
@@ -48,23 +49,23 @@ ul {
     justify-content: flex-end;
     margin-right: -1.6rem;
   }
-}
 
-li {
-  color: white;
-  font-size: 2rem;
-  font-weight: 400;
-  padding: 1.6rem;
-  line-height: 2.4rem;
-  transition: color 0.2s;
-  white-space: nowrap;
-
-  @include breakpoint('lg') {
-    padding: 0.8rem 1.6rem;
-  }
-
-  &:hover {
-    color: #b6c7aa;
+  li {
+    color: white;
+    font-size: 2rem;
+    font-weight: 400;
+    padding: 1.6rem;
+    line-height: 2.4rem;
+    transition: color 0.2s;
+    white-space: nowrap;
     cursor: pointer;
+
+    @include breakpoint('lg') {
+      padding: 0.8rem 1.6rem;
+    }
+
+    &:hover {
+      color: #b6c7aa;
+    }
   }
 }

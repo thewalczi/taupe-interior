@@ -1,6 +1,6 @@
 import { breakpointStep } from '../../../helpers/breakpoints';
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
-import { Socials } from '../Socials';
+import { Socials } from '../Socials/Socials';
 import { useResize } from '../../../hooks/useResize';
 import { MenuButton } from '../menuButton/MenuButton';
 import styles from './navigation.module.scss';

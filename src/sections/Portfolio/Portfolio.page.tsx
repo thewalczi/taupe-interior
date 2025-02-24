@@ -83,7 +83,6 @@ export const PortfolioPage = () => {
   const [lightboxOpenIndex, setLightboxOpenIndex] = useState<number | null>(null);
 
   const handleOpenLightbox = (index: number) => {
-    console.log('open lightbox', index);
     setLightboxOpenIndex(index);
   };
 
