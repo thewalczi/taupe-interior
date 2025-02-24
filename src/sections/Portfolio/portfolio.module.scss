@@ -62,7 +62,7 @@ $item__padding: 2.4rem;
     height: 100%;
     opacity: 0;
     transition: opacity 0.3s;
-    background-color: var(--color-primary);
+    background-color: var(--color-taupe-500);
   }
 
   > span {
@@ -107,7 +107,7 @@ $item__padding: 2.4rem;
     gap: 2.4rem;
 
     button {
-      background-color: var(--color-action);
+      background-color: var(--color-sage-100);
       color: white;
       border: none;
       cursor: pointer;

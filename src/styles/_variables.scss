@@ -1,8 +1,15 @@
 @use 'mixins' as *;
 :root {
-  --color-primary: #a1988f;
-  --color-secondary: #cec7bd;
-  --color-action: #b6c7aa;
+  --color-taupe-100: #cec7bd;
+  --color-taupe-300: #beb6af;
+  --color-taupe-500: #a1988f;
+  --color-taupe-800: #7b7369;
+
+  --color-sage-100: #b6c7aa;
+  --color-sage-300: #9db08e;
+  --color-sage-500: #8e9a7d;
+  --color-sage-800: #5c6a4f;
+
   --container__padding-horizontal: 1.6rem;
   --container__max-width: 144rem;
 

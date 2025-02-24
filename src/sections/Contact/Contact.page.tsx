@@ -50,14 +50,14 @@ export const ContactPage = () => {
     <section className={styles.container} id={'contact'}>
       <div className={styles.wrapper}>
         <h2>Skontaktujmy się</h2>
-        <div className={styles.contact}>
-          <div className={styles['contact-image']} />
-          <div className={styles['contact-info']}>
-            <div className={styles['contact-info__email']}>
+        <div className={styles.details}>
+          <div className={styles['details-image']} />
+          <div className={styles['details-info']}>
+            <div className={styles['details-info__email']}>
               <h4>Email:</h4>
               <p>biuro@taupe-interior.pl</p>
             </div>
-            <div className={styles['contact-info__phone']}>
+            <div className={styles['details-info__phone']}>
               <h4>Telefon:</h4>
               <p>+48 570 750 870</p>
             </div>
