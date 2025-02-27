@@ -1,5 +1,5 @@
-import { FacebookIcon } from '../../../utils/Facebook.icon';
-import { InstagramIcon } from '../../../utils/Instagram.icon';
+import { FacebookIcon } from '../../utils/Facebook.icon';
+import { InstagramIcon } from '../../utils/Instagram.icon';
 import styles from './socials.module.scss';
 
 export const Socials = () => {

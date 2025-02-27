@@ -1,8 +1,8 @@
 import { breakpointStep } from '../../../helpers/breakpoints';
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
-import { Socials } from '../Socials/Socials';
+import { Socials } from '../../socials/Socials';
 import { useResize } from '../../../hooks/useResize';
-import { MenuButton } from '../menuButton/MenuButton';
+import { MenuButton } from '../menu-button/MenuButton';
 import styles from './navigation.module.scss';
 
 interface NavItem {
