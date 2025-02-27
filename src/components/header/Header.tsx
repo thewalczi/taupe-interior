@@ -8,6 +8,7 @@ export const Header = () => {
 
   useEffect(() => {
     let prevScrollPos = window.scrollY;
+
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
       const header = document.querySelector('header');

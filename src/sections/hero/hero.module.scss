@@ -69,8 +69,10 @@
   }
 
   .image {
-    width: min(37.5rem, 80vh);
-    height: min(37.5rem, 80vh);
+    $image-size: min(37.5rem, 80vh);
+
+    width: $image-size;
+    height: $image-size;
     background-image: url('@/assets/bathroom1.jpg');
     background-size: cover;
     background-position: center;
@@ -81,19 +83,23 @@
     transform: translate(25%, -50%);
 
     @include breakpoint('md') {
+      $image-size: min(70rem, 75vh);
+
       position: relative;
-      top: -10%;
+      top: 0; // -10%;
       flex: 0 0 auto;
-      transform: translate(-10%, 0px);
-      width: min(50rem, 75vh);
-      height: min(50rem, 75vh);
+      transform: translate(-5%, 0px);
+      width: $image-size;
+      height: $image-size;
     }
 
     @include breakpoint('lg') {
+      $image-size: min(58rem, 80vh);
+
       transform: none;
-      width: min(58%, 80vh);
+      width: $image-size;
       height: 0;
-      padding-bottom: min(58%, 80vh);
+      padding-bottom: $image-size;
       top: 0;
     }
   }

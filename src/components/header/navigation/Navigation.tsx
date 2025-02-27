@@ -45,6 +45,7 @@ export const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false);
     }
   }, []);
 
