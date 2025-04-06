@@ -1,6 +1,4 @@
 import { ButtonHTMLAttributes, FC } from 'react';
-import styled from 'styled-components';
-import { mediaQuery } from '../../../helpers/breakpoints';
 import styles from './menuButton.module.scss';
 
 interface MenuButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

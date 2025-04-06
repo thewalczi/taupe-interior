@@ -1,4 +1,3 @@
-import React from 'react';
 import { Socials } from '../socials/Socials';
 import styles from './footer.module.scss';
 

@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import styles from './contact.module.scss';
 import { useForm } from 'react-hook-form';
-import type { FieldValues } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import emailjs from '@emailjs/browser';
@@ -20,7 +19,7 @@ export const ContactPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     reset,
   } = useForm({
     resolver: zodResolver(messageSchema),
@@ -32,7 +31,7 @@ export const ContactPage = () => {
     });
   }, []);
 
-  const onSubmit = async (data: FieldValues) => {
+  const onSubmit = async () => {
     if (formRef.current === null) return;
 
     const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
