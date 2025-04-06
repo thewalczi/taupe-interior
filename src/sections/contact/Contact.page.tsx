@@ -1,9 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import styles from './contact.module.scss';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import emailjs from '@emailjs/browser';
+import { LoaderIcon } from '../../utils/Loader.icon';
 
 const messageSchema = z.object({
   name: z.string().min(3, 'To pole musi mieć co najmniej 3 znaki'),
@@ -19,11 +20,22 @@ export const ContactPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting, isSubmitSuccessful, submitCount },
     reset,
   } = useForm({
     resolver: zodResolver(messageSchema),
   });
+
+  const messageText = useMemo(() => {
+    if (isSubmitSuccessful) {
+      return 'Wiadomość została wysłana.';
+    } else {
+      if (submitCount > 0) {
+        return 'Wiadomość nie została wysłana. Spróbuj ponownie.';
+      }
+      return;
+    }
+  }, [isSubmitSuccessful, submitCount]);
 
   useEffect(() => {
     emailjs.init({
@@ -78,7 +90,12 @@ export const ContactPage = () => {
             <textarea {...register('message')} id="message" name="message" required />
             {errors.message && <p>{`${errors.message.message}`}</p>}
           </div>
-          <button type="submit">Wyślij</button>
+          <div className={styles.footer}>
+            <button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? <LoaderIcon /> : 'Wyślij'}
+            </button>
+            <span>{messageText}</span>
+          </div>
         </form>
       </div>
     </section>
