@@ -1,0 +1,34 @@
+name: Deploy to FTP
+
+on:
+  push:
+    branches:
+      - main # Change this to your default branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16' # Specify your Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to FTP
+        uses: samoschenko/ftp-deploy@v1.4.0
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist # Adjust if your build directory is different
+          remote-dir: ${{ secrets.FTP_TARGET }}
