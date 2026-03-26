@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './contact.module.scss';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import emailjs from '@emailjs/browser';
 import { LoaderIcon } from '../../utils/Loader.icon';
+import useContentful, { Contact } from '../../hooks/useContentful';
 
 const messageSchema = z.object({
   name: z.string().min(3, 'To pole musi mieć co najmniej 3 znaki'),
@@ -25,6 +26,9 @@ export const ContactPage = () => {
   } = useForm({
     resolver: zodResolver(messageSchema),
   });
+  const { getContact } = useContentful();
+
+  const [contactData, setContactData] = useState<Contact>();
 
   const messageText = useMemo(() => {
     if (isSubmitSuccessful) {
@@ -57,12 +61,21 @@ export const ContactPage = () => {
     }
   };
 
+  useEffect(() => {
+    (async () => {
+      const response = await getContact();
+      setContactData(response);
+    })();
+  }, []);
+
   return (
     <section className={styles.container} id={'contact'}>
       <div className={styles.wrapper}>
         <h2>Skontaktujmy się</h2>
         <div className={styles.details}>
-          <div className={styles['details-image']} />
+          <div className={styles['details-image']}>
+            <img src={contactData?.contactImgUrl} />
+          </div>
           <div className={styles['details-info']}>
             <div className={styles['details-info__email']}>
               <h4>Email:</h4>

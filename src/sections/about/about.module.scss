@@ -30,31 +30,40 @@
   .avatar {
     width: 25rem;
     height: 25rem;
-    // background-image: url('@/assets/sypialnia2.webp');
     background-color: gray;
     background-size: cover;
     background-position: center;
     border-radius: 50%;
-    position: relative;
-
-    @include breakpoint('lg') {
-      flex: 0 0 auto;
-
-      &:before {
-        content: '';
-        display: block;
-        width: 30rem;
-        height: 30rem;
-        background-image: url('@/assets/sypialnia2.webp');
-        background-size: cover;
-        background-position: center;
-        border-radius: 50%;
-        position: absolute;
-        top: 20%;
-        left: 20%;
-        z-index: -1;
+    overflow: hidden;
+    
+    > img {
+      max-height: 100%;
+    }
+    
+    &-wrapper {
+      position: relative;
+      
+      @include breakpoint('lg') {
+        flex: 0 0 auto;
+  
+        &:before {
+          content: '';
+          display: block;
+          width: 30rem;
+          height: 30rem;
+          background-image: url('@/assets/sypialnia2.webp');
+          background-size: cover;
+          background-position: center;
+          border-radius: 50%;
+          position: absolute;
+          top: 20%;
+          left: 20%;
+          z-index: -1;
+        }
       }
     }
+
+
   }
 
   .text {

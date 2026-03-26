@@ -73,20 +73,24 @@
 
     width: $image-size;
     height: $image-size;
-    background-image: url('@/assets/bathroom1.webp');
-    background-size: cover;
-    background-position: center;
     border-radius: 50%;
     position: absolute;
     top: 50%;
     right: 0;
     transform: translate(25%, -50%);
+    overflow: hidden;
+
+    > img {
+      max-width: 100%;
+      height: auto;
+      transform: translateY(-15%);
+    }
 
     @include breakpoint('md') {
       $image-size: min(70rem, 75vh);
 
       position: relative;
-      top: 0; // -10%;
+      top: 0;
       flex: 0 0 auto;
       transform: translate(-5%, 0px);
       width: $image-size;

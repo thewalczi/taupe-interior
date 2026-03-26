@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import styles from '../../sections/portfolio/portfolio.module.scss';
-import { Project } from '../../sections/portfolio/Portfolio.page';
 import Lightbox from 'yet-another-react-lightbox';
+import { Project } from '../../hooks/useContentful';
 
 interface GalleryProps {
   activeProject: Project | null;

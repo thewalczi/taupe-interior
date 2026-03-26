@@ -3,14 +3,14 @@ import { Project } from '../../sections/portfolio/Portfolio.page';
 import styles from '../../sections/portfolio/portfolio.module.scss';
 
 interface ProjectsGridProps {
-  projects: Project[];
+  projects: Project[] | undefined;
   setActiveProject: Dispatch<SetStateAction<Project | null>>;
 }
 
 export const ProjectsGrid: FC<ProjectsGridProps> = ({ projects, setActiveProject }) => {
   return (
     <div className={styles.grid} key={'grid'}>
-      {projects.map((project) => (
+      {projects?.map((project) => (
         <div
           className={styles.item}
           key={`${project.id}_${project.title}`}

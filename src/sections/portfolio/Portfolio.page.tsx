@@ -1,28 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './portfolio.module.scss';
 import projectsData from './projects.json';
 import { ProjectsGrid } from '../../components/gallery/ProjectsGrid';
 import { Gallery } from '../../components/gallery/Gallery';
 import 'yet-another-react-lightbox/styles.css';
+import useContentful, { Project } from '../../hooks/useContentful';
 
-export interface Project {
-  id: number;
-  title: string;
-  description: string;
-  images: string[];
-}
-
-const projects = JSON.parse(JSON.stringify(projectsData)) as Project[];
+// const projects = JSON.parse(JSON.stringify(projectsData)) as Project[];
 
 export const PortfolioPage = () => {
+  const { getPortfolio } = useContentful();
   const [activeProject, setActiveProject] = useState<Project | null>(null);
+  const [portfolio, setPortfolio] = useState<Project[] | undefined>([]);
+
+  useEffect(() => {
+    (async () => {
+      const portfolio = await getPortfolio();
+
+      setPortfolio(portfolio);
+    })();
+  }, []);
 
   return (
     <section className={styles.container}>
       <div className={styles.wrapper} id={'portfolio'}>
         <h2>Portfolio</h2>
         {!activeProject ? (
-          <ProjectsGrid projects={projects} setActiveProject={setActiveProject} />
+          <ProjectsGrid projects={portfolio} setActiveProject={setActiveProject} />
         ) : (
           <Gallery activeProject={activeProject} setActiveProject={setActiveProject} />
         )}

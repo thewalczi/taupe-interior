@@ -24,10 +24,10 @@ const navItems: NavItem[] = [
     id: 'portfolio',
     label: 'Portfolio',
   },
-  {
-    id: 'offer',
-    label: 'Oferta',
-  },
+  // {
+  //   id: 'offer',
+  //   label: 'Oferta',
+  // },
   {
     id: 'contact',
     label: 'Kontakt',
