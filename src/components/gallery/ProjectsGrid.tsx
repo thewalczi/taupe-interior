@@ -1,6 +1,6 @@
 import { Dispatch, FC, SetStateAction } from 'react';
-import { Project } from '../../sections/portfolio/Portfolio.page';
 import styles from '../../sections/portfolio/portfolio.module.scss';
+import { Project } from '../../hooks/useContentful';
 
 interface ProjectsGridProps {
   projects: Project[] | undefined;

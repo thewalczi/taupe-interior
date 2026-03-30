@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import styles from './portfolio.module.scss';
-import projectsData from './projects.json';
 import { ProjectsGrid } from '../../components/gallery/ProjectsGrid';
 import { Gallery } from '../../components/gallery/Gallery';
 import 'yet-another-react-lightbox/styles.css';

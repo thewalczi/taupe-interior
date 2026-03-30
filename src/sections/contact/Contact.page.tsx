@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import emailjs from '@emailjs/browser';
 import { LoaderIcon } from '../../utils/Loader.icon';
-import useContentful, { Contact } from '../../hooks/useContentful';
+import useContentful, { ContactFields } from '../../hooks/useContentful';
 
 const messageSchema = z.object({
   name: z.string().min(3, 'To pole musi mieć co najmniej 3 znaki'),
@@ -28,7 +28,7 @@ export const ContactPage = () => {
   });
   const { getContact } = useContentful();
 
-  const [contactData, setContactData] = useState<Contact>();
+  const [contactData, setContactData] = useState<ContactFields>();
 
   const messageText = useMemo(() => {
     if (isSubmitSuccessful) {

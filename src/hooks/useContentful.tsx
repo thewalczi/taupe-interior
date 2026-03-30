@@ -1,34 +1,26 @@
-import {
-  Asset,
-  AssetCollection,
-  AssetFields,
-  AssetFile,
-  AssetKey,
-  createClient,
-  Entry,
-  EntryCollection,
-  EntrySkeletonType,
-  FieldItem,
-  FieldsType,
-} from 'contentful';
+import { Asset, createClient, FieldsType, UnresolvedLink } from 'contentful';
 
 export interface AboutFields {
   about: string;
   avatar: string;
 }
 
-export interface HeroFields {
-  heroUrl: string;
-}
+export type HeroFields = {
+  hero: Asset;
+};
+
+export type HeroResponse = {
+  heroUrl?: string;
+};
 
 export interface Project {
   id: number;
   title: string;
   description: string;
-  images: (string | AssetFile)[];
+  images: string[];
 }
 
-export interface Contact {
+export interface ContactFields {
   contactImgUrl: string;
 }
 
@@ -39,17 +31,17 @@ const useContentful = () => {
     host: import.meta.env.VITE_CONTENTFUL_HOST,
   });
 
-  const getHero = async (): Promise<HeroFields | undefined> => {
+  const getHero = async (): Promise<HeroResponse | undefined> => {
     try {
       const entries = await client.getEntries({
         content_type: 'hero',
-        select: ['fields'],
         include: 1,
       });
 
       const first = entries.items[0];
 
-      const heroUrl = first.fields.hero?.fields.file.url;
+      const hero = first.fields.hero as Asset;
+      const heroUrl = hero.fields.file?.url as string | undefined;
 
       return { heroUrl };
     } catch (error) {
@@ -73,7 +65,10 @@ const useContentful = () => {
       const about = first.fields.about;
 
       const imageRef = first.fields.avatar;
-      const imageAsset = assetsMap.get(imageRef?.sys.id);
+      const imageAsset =
+        imageRef && typeof imageRef === 'object' && 'sys' in imageRef
+          ? assetsMap.get((imageRef as Asset).sys.id)
+          : undefined;
 
       const avatar = imageAsset?.fields.file?.url;
 
@@ -95,9 +90,11 @@ const useContentful = () => {
       const assetsMap = new Map<string, Asset>(entries.includes?.Asset?.map((asset) => [asset.sys.id, asset]));
 
       const portfolio = entries.items.map((item) => {
-        const projectFields = item.fields as unknown as Project;
+        const projectFields = item.fields as unknown as FieldsType;
 
-        const images = projectFields.images.map((image) => assetsMap.get(image.sys.id)?.fields.file?.url || '');
+        const images: string[] = projectFields.images.map(
+          (image: UnresolvedLink<'Asset'>) => assetsMap.get(image.sys.id)?.fields.file?.url || '',
+        );
 
         return {
           id: projectFields.id,
@@ -113,7 +110,7 @@ const useContentful = () => {
     }
   };
 
-  const getContact = async (): Promise<Contact | undefined> => {
+  const getContact = async (): Promise<ContactFields | undefined> => {
     try {
       const entries = await client.getEntries({
         content_type: 'contact',
@@ -123,7 +120,7 @@ const useContentful = () => {
 
       const first = entries.items[0];
 
-      const contactImgUrl = first.fields.image?.fields.file.url;
+      const contactImgUrl = (first.fields.image as Asset)?.fields.file?.url as string;
 
       return { contactImgUrl };
     } catch (error) {
