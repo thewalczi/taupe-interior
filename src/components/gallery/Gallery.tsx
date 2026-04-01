@@ -3,6 +3,8 @@ import styles from '../../sections/portfolio/portfolio.module.scss';
 import Lightbox from 'yet-another-react-lightbox';
 import { Project } from '../../hooks/useContentful';
 
+import CaretIcon from '../../utils/caret.svg';
+
 interface GalleryProps {
   activeProject: Project | null;
   setActiveProject: Dispatch<SetStateAction<Project | null>>;
@@ -19,7 +21,7 @@ export const Gallery: FC<GalleryProps> = ({ activeProject, setActiveProject }) =
     <div className={styles.project} key={'project'}>
       <div className={styles.header}>
         <button onClick={() => setActiveProject(null)}>
-          <img src="./src/utils/caret.svg" alt="Go back icon" />
+          <img src={CaretIcon} alt="Go back icon" />
         </button>
 
         <p>{activeProject?.description}</p>
