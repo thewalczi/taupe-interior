@@ -22,6 +22,9 @@ export const AboutPage = () => {
           <div className={styles.avatar}>
             <img src={aboutData?.avatar} />
           </div>
+          <div className={styles['bg-image']}>
+            <img src={aboutData?.bgImage} />
+          </div>
         </div>
         <div className={styles.text}>
           <Markdown>{aboutData?.about}</Markdown>

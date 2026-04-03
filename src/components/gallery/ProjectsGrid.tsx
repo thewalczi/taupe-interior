@@ -17,7 +17,7 @@ export const ProjectsGrid: FC<ProjectsGridProps> = ({ projects, setActiveProject
           onClick={() => setActiveProject(project)}
           style={{ backgroundImage: `url(${project.images[0]})` }}
         >
-          <span>{project.description}</span>
+          <span>{project.title}</span>
         </div>
       ))}
     </div>

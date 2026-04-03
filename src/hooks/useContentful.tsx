@@ -2,7 +2,8 @@ import { Asset, createClient, FieldsType, UnresolvedLink } from 'contentful';
 
 export interface AboutFields {
   about: string;
-  avatar: string;
+  avatar: string | undefined;
+  bgImage: string | undefined;
 }
 
 export type HeroFields = {
@@ -58,21 +59,22 @@ const useContentful = () => {
         include: 1,
       });
 
-      const assetsMap = new Map<string, Asset>(entries.includes?.Asset?.map((asset) => [asset.sys.id, asset]));
+      const assetsMap = new Map(entries.includes?.Asset?.map((asset) => [asset.sys.id, asset]));
 
       const first = entries.items[0];
 
-      const about = first.fields.about;
+      const about = first.fields.about as string;
 
-      const imageRef = first.fields.avatar;
-      const imageAsset =
-        imageRef && typeof imageRef === 'object' && 'sys' in imageRef
-          ? assetsMap.get((imageRef as Asset).sys.id)
-          : undefined;
+      const avatarRef = first.fields.avatar as Asset;
+      const bgImageRef = first.fields.backgroundImage as Asset;
+
+      const imageAsset = assetsMap.get(avatarRef.sys.id);
+      const bgImageAsset = assetsMap.get(bgImageRef.sys.id);
 
       const avatar = imageAsset?.fields.file?.url;
+      const bgImage = bgImageAsset?.fields.file?.url;
 
-      return { about, avatar } as AboutFields;
+      return { about, avatar, bgImage };
     } catch (error) {
       console.error(`Error fetching about: ${error}`);
       return undefined;

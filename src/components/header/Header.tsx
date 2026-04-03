@@ -13,7 +13,7 @@ export const Header = () => {
       const currentScrollPos = window.scrollY;
       const header = document.querySelector('header');
       if (header && !isMenuOpen) {
-        if (prevScrollPos > currentScrollPos) {
+        if (prevScrollPos > currentScrollPos || currentScrollPos < 25) {
           header.style.top = '0';
         } else {
           header.style.top = '-150px';
