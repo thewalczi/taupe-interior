@@ -70,7 +70,7 @@
 
   .image {
     $image-size: min(37.5rem, 80vh);
-
+    display: flex;
     width: $image-size;
     height: $image-size;
     border-radius: 50%;
@@ -81,14 +81,12 @@
     overflow: hidden;
 
     > img {
-      max-width: 100%;
-      height: auto;
-      transform: translateY(-15%);
+      min-width: 100%;
+      min-height: 100%;
     }
 
     @include breakpoint('md') {
       $image-size: min(70rem, 75vh);
-
       position: relative;
       top: 0;
       flex: 0 0 auto;
@@ -99,11 +97,9 @@
 
     @include breakpoint('lg') {
       $image-size: min(58rem, 80vh);
-
       transform: none;
       width: $image-size;
-      height: 0;
-      padding-bottom: $image-size;
+      height: $image-size;
       top: 0;
     }
   }
