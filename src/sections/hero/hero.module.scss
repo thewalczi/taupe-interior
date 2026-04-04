@@ -29,10 +29,17 @@
 
     &:after {
       content: url('@/utils/lines.svg');
-      width: min(80%, 35rem);
       position: absolute;
-      top: 50%;
-      right: 45%;
+      top: 100%;
+      right: 40%;
+      min-width: min(65vw, 60%);
+      transform: translate(0, -60%);
+
+      @include breakpoint('md') {
+        right: 50%;
+        min-width: min(60vh, 35rem);
+        transform: translate(0, -50%);
+      }
 
       @include breakpoint('lg') {
         left: -5%;
@@ -53,7 +60,7 @@
 
     @include breakpoint('md') {
       position: relative;
-      flex: 0 0 40%;
+      flex: 0 0 45%;
       top: -15%;
     }
 
@@ -69,7 +76,7 @@
   }
 
   .image {
-    $image-size: min(37.5rem, 80vh);
+    $image-size: min(48rem, 65vh);
     display: flex;
     width: $image-size;
     height: $image-size;
@@ -86,17 +93,17 @@
     }
 
     @include breakpoint('md') {
-      $image-size: min(70rem, 75vh);
+      $image-size: min(80rem, 75vh);
       position: relative;
       top: 0;
       flex: 0 0 auto;
-      transform: translate(-5%, 0px);
+      transform: translate(10%, 0px);
       width: $image-size;
       height: $image-size;
     }
 
     @include breakpoint('lg') {
-      $image-size: min(58rem, 80vh);
+      $image-size: min(50vw, 75vh);
       transform: none;
       width: $image-size;
       height: $image-size;
