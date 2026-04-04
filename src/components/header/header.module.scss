@@ -2,13 +2,13 @@
 
 :root {
   --header__padding-vertical: 1.6rem;
-  --header-logo__size: 8rem;
+  --header-logo__size: 6rem;
   & {
     --header__height: calc(var(--header__padding-vertical) * 2 + var(--header-logo__size));
   }
 
   @include breakpoint('lg') {
-    --header-logo__size: 10rem;
+    --header-logo__size: 8rem;
   }
 }
 
