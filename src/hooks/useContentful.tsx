@@ -1,4 +1,4 @@
-import { Asset, createClient, FieldsType, UnresolvedLink } from 'contentful';
+import { Asset, createClient } from 'contentful';
 
 export interface AboutFields {
   about: string;
@@ -14,11 +14,13 @@ export type HeroResponse = {
   heroUrl?: string;
 };
 
+export type PortfolioType = 'project' | 'realization';
 export interface Project {
   id: number;
   title: string;
   description: string;
-  images: string[];
+  type: PortfolioType;
+  images: Array<Asset>;
 }
 
 export interface ContactFields {
@@ -81,7 +83,7 @@ const useContentful = () => {
     }
   };
 
-  const getPortfolio = async (): Promise<Project[] | undefined> => {
+  const getPortfolio = async (): Promise<Project[]> => {
     try {
       const entries = await client.getEntries({
         content_type: 'portfolio',
@@ -89,26 +91,16 @@ const useContentful = () => {
         include: 1,
       });
 
-      const assetsMap = new Map<string, Asset>(entries.includes?.Asset?.map((asset) => [asset.sys.id, asset]));
-
       const portfolio = entries.items.map((item) => {
-        const projectFields = item.fields as unknown as FieldsType;
+        const projectFields = item.fields as unknown as Project;
 
-        const images: string[] = projectFields.images.map(
-          (image: UnresolvedLink<'Asset'>) => assetsMap.get(image.sys.id)?.fields.file?.url || '',
-        );
-
-        return {
-          id: projectFields.id,
-          title: projectFields.title,
-          description: projectFields.description,
-          images,
-        };
+        return projectFields;
       });
 
       return portfolio;
     } catch (error) {
       console.error(`Error fetching portfolio: ${error}`);
+      throw error;
     }
   };
 

@@ -30,6 +30,12 @@ $item__padding: 2.4rem;
   }
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 7.2rem;
+}
+
 .grid {
   flex: 0 0 100%;
   display: grid;
@@ -38,6 +44,10 @@ $item__padding: 2.4rem;
 
   @include breakpoint('lg') {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  }
+
+  h3 {
+    color: white;
   }
 }
 

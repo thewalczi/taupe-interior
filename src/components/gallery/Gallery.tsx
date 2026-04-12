@@ -29,7 +29,11 @@ export const Gallery: FC<GalleryProps> = ({ activeProject, setActiveProject }) =
       <div className={styles.gallery}>
         {activeProject?.images.map((image, i) => (
           <div className={styles.image_wrapper} key={`project-${activeProject.id}_${image}`}>
-            <img src={image} alt={activeProject.title} onClick={() => handleOpenLightbox(i)} />
+            <img
+              src={image.fields.file?.url as string}
+              alt={activeProject.title}
+              onClick={() => handleOpenLightbox(i)}
+            />
           </div>
         ))}
       </div>
@@ -37,7 +41,7 @@ export const Gallery: FC<GalleryProps> = ({ activeProject, setActiveProject }) =
         open={lightboxOpenIndex !== null}
         close={() => setLightboxOpenIndex(null)}
         index={lightboxOpenIndex ?? 0}
-        slides={activeProject?.images.map((image) => ({ src: image }))}
+        slides={activeProject?.images.map((image) => ({ src: image.fields.file?.url as string }))}
         controller={{ closeOnBackdropClick: true }}
       />
     </div>

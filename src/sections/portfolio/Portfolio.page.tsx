@@ -1,22 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import styles from './portfolio.module.scss';
-import { ProjectsGrid } from '../../components/gallery/ProjectsGrid';
+import { PortfolioGrid } from '../../components/gallery/PortfolioGrid';
 import { Gallery } from '../../components/gallery/Gallery';
 import 'yet-another-react-lightbox/styles.css';
 import useContentful, { Project } from '../../hooks/useContentful';
 
-// const projects = JSON.parse(JSON.stringify(projectsData)) as Project[];
-
 export const PortfolioPage = () => {
-  const { getPortfolio } = useContentful();
   const [activeProject, setActiveProject] = useState<Project | null>(null);
-  const [portfolio, setPortfolio] = useState<Project[] | undefined>([]);
+  const [portfolioData, setPortfolioData] = useState<Project[]>([]);
+
+  const { getPortfolio } = useContentful();
+
+  const portfolio = useMemo(() => {
+    return portfolioData.reduce(
+      (acc: { projects: Project[]; realizations: Project[] }, curr) => {
+        if (curr.type === 'project') {
+          acc.projects.push(curr);
+        } else {
+          acc.realizations.push(curr);
+        }
+        return acc;
+      },
+      { projects: [], realizations: [] },
+    );
+  }, [portfolioData]);
 
   useEffect(() => {
     (async () => {
       const portfolio = await getPortfolio();
-
-      setPortfolio(portfolio);
+      setPortfolioData(portfolio);
     })();
   }, []);
 
@@ -24,11 +36,16 @@ export const PortfolioPage = () => {
     <section className={styles.container}>
       <div className={styles.wrapper} id={'portfolio'}>
         <h2>Portfolio</h2>
-        {!activeProject ? (
-          <ProjectsGrid projects={portfolio} setActiveProject={setActiveProject} />
-        ) : (
-          <Gallery activeProject={activeProject} setActiveProject={setActiveProject} />
-        )}
+        <div className={styles.content}>
+          {!activeProject ? (
+            <>
+              <PortfolioGrid title={'project'} items={portfolio.projects} setActiveProject={setActiveProject} />
+              <PortfolioGrid title={'realization'} items={portfolio.realizations} setActiveProject={setActiveProject} />
+            </>
+          ) : (
+            <Gallery activeProject={activeProject} setActiveProject={setActiveProject} />
+          )}
+        </div>
       </div>
     </section>
   );
