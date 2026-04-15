@@ -1,17 +1,15 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import styles from '../../sections/portfolio/portfolio.module.scss';
 import Lightbox from 'yet-another-react-lightbox';
-import { Project } from '../../hooks/useContentful';
 
 import CaretIcon from '../../utils/caret.svg';
+import usePortfolio from '../../store/portfolio.store';
 
-interface GalleryProps {
-  activeProject: Project | null;
-  setActiveProject: Dispatch<SetStateAction<Project | null>>;
-}
-
-export const Gallery: FC<GalleryProps> = ({ activeProject, setActiveProject }) => {
+export const Gallery = () => {
   const [lightboxOpenIndex, setLightboxOpenIndex] = useState<number | null>(null);
+
+  const activeProject = usePortfolio((state) => state.activeProject);
+  const resetActiveProject = usePortfolio((state) => state.resetActiveProject);
 
   const handleOpenLightbox = (index: number) => {
     setLightboxOpenIndex(index);
@@ -20,7 +18,7 @@ export const Gallery: FC<GalleryProps> = ({ activeProject, setActiveProject }) =
   return (
     <div className={styles.project} key={'project'}>
       <div className={styles.header}>
-        <button onClick={() => setActiveProject(null)}>
+        <button onClick={() => resetActiveProject()}>
           <img src={CaretIcon} alt="Go back icon" />
         </button>
 
