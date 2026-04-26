@@ -4,10 +4,12 @@ import { Socials } from '../../socials/Socials';
 import { useResize } from '../../../hooks/useResize';
 import { MenuButton } from '../menu-button/MenuButton';
 import styles from './navigation.module.scss';
+import { useOffer } from '../../../hooks/useOffer';
 
 interface NavItem {
   id: string;
   label: string;
+  customAction?: () => void;
 }
 
 interface NavigationProps {
@@ -15,27 +17,29 @@ interface NavigationProps {
   setIsMenuOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const navItems: NavItem[] = [
-  {
-    id: 'about',
-    label: 'O mnie',
-  },
-  {
-    id: 'portfolio',
-    label: 'Portfolio',
-  },
-  // {
-  //   id: 'offer',
-  //   label: 'Oferta',
-  // },
-  {
-    id: 'contact',
-    label: 'Kontakt',
-  },
-];
-
 export const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
   const { width } = useResize();
+  const { openFile } = useOffer();
+
+  const navItems: NavItem[] = [
+    {
+      id: 'about',
+      label: 'O mnie',
+    },
+    {
+      id: 'portfolio',
+      label: 'Portfolio',
+    },
+    {
+      id: 'offer',
+      label: 'Oferta',
+      customAction: openFile,
+    },
+    {
+      id: 'contact',
+      label: 'Kontakt',
+    },
+  ];
 
   const handleToggleMenu = useCallback(() => {
     setIsMenuOpen((prev: boolean) => !prev);
@@ -66,11 +70,14 @@ export const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
       {width >= breakpointStep.lg ? null : <MenuButton onClick={handleToggleMenu} active={isMenuOpen} />}
       <nav className={`${styles.container} ${isMenuOpen ? styles['menu--open'] : ''}`}>
         <ul>
-          {navItems.map((item: NavItem, i: number) => (
-            <li key={`${item.id}_${i}`} onClick={() => scrollToSection(item.id)}>
-              {item.label}
-            </li>
-          ))}
+          {navItems.map((item: NavItem, i: number) => {
+            const { id, label, customAction } = item;
+            return (
+              <li key={`${id}_${i}`} onClick={() => (customAction ? customAction() : scrollToSection(id))}>
+                {label}
+              </li>
+            );
+          })}
         </ul>
         <Socials />
       </nav>

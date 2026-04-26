@@ -1,14 +1,11 @@
 import { Asset, createClient } from 'contentful';
+import { FieldValues } from 'react-hook-form';
 
 export interface AboutFields {
   about: string;
   avatar: string | undefined;
   bgImage: string | undefined;
 }
-
-export type HeroFields = {
-  hero: Asset;
-};
 
 export type HeroResponse = {
   heroUrl?: string;
@@ -22,6 +19,8 @@ export interface Project {
   type: PortfolioType;
   images: Array<Asset>;
 }
+
+export type OfferFields = FieldValues;
 
 export interface ContactFields {
   contactImgUrl: string;
@@ -104,6 +103,23 @@ const useContentful = () => {
     }
   };
 
+  const getOffer = async (): Promise<OfferFields | undefined> => {
+    try {
+      const entries = await client.getEntries({
+        content_type: 'offer',
+        select: ['fields'],
+        include: 1,
+      });
+
+      const offer = entries.items[0].fields.offer as Asset;
+
+      return offer.fields;
+    } catch (error) {
+      console.error(`Error fetching offer: ${error}`);
+      throw error;
+    }
+  };
+
   const getContact = async (): Promise<ContactFields | undefined> => {
     try {
       const entries = await client.getEntries({
@@ -122,7 +138,7 @@ const useContentful = () => {
     }
   };
 
-  return { getAbout, getHero, getPortfolio, getContact };
+  return { getAbout, getHero, getPortfolio, getOffer, getContact };
 };
 
 export default useContentful;
