@@ -14,7 +14,7 @@ $item-text__lines: 8;
 $item__padding: 2.4rem;
 
 .container {
-  padding: 3.2rem;
+  padding: 3.2rem var(--container__padding-horizontal);
   max-width: var(--container__max-width);
   margin: 0 auto;
   min-height: 100vh;
@@ -33,7 +33,11 @@ $item__padding: 2.4rem;
 .content {
   display: flex;
   flex-direction: column;
-  gap: 7.2rem;
+  gap: 3.2rem;
+
+  h3 {
+    color: white;
+  }
 }
 
 .grid {
@@ -41,13 +45,10 @@ $item__padding: 2.4rem;
   display: grid;
   gap: 3.2rem;
   animation: fadeIn 0.3s linear;
+  margin-bottom: 2.4rem;
 
   @include breakpoint('lg') {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  }
-
-  h3 {
-    color: white;
   }
 }
 

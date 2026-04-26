@@ -13,7 +13,6 @@ export const useOffer = () => {
   }, []);
 
   const pdfLink = useMemo(() => {
-    console.log(offer);
     if (!offer) return;
     return offer.file.url;
   }, [offer]);

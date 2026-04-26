@@ -1,5 +1,5 @@
 .container {
-  padding: 3.2rem;
+  padding: 3.2rem var(--container__padding-horizontal);
   max-width: var(--container__max-width);
   margin: 0 auto;
   display: flex;
