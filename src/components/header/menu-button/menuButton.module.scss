@@ -1,3 +1,5 @@
+@use '@/styles/mixins.scss' as *;
+
 .container {
   border: none;
   background: none;
@@ -9,10 +11,6 @@
   color: white;
   transition: color 0.3s;
   margin-right: -1.6rem;
-
-  &:hover {
-    color: #b6c7aa;
-  }
 }
 
 .icon {

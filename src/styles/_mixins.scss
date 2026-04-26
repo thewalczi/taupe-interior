@@ -21,3 +21,13 @@
     }
   }
 }
+
+@mixin gradientTaupe {
+  $color1: var(--color-orange);
+  $color2: var(--color-purple);
+
+  background-color: $color1;
+  background-image: -webkit-linear-gradient(to left, $color1, $color2);
+  background-image: -moz-linear-gradient(to left $color1, $color2);
+  background-image: linear-gradient(to left, $color1, $color2);
+}

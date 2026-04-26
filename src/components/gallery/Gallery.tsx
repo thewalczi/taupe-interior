@@ -26,7 +26,7 @@ export const Gallery = () => {
       </div>
       <div className={styles.gallery}>
         {activeProject?.images.map((image, i) => (
-          <div className={styles.image_wrapper} key={`project-${activeProject.id}_${image}`}>
+          <div className={styles.image_wrapper} key={`project-${activeProject.id}_${image.sys.id}`}>
             <img
               src={image.fields.file?.url as string}
               alt={activeProject.title}

@@ -12,6 +12,7 @@
 $item-text__line-height: 2.2rem;
 $item-text__lines: 8;
 $item__padding: 2.4rem;
+$back_button-size: 5.6rem;
 
 .container {
   padding: 3.2rem var(--container__padding-horizontal);
@@ -115,17 +116,31 @@ $item__padding: 2.4rem;
     padding: 0 0 3.2rem 0;
     font-size: 2rem;
     display: flex;
+    flex-direction: column;
     gap: 2.4rem;
 
+    @include breakpoint('md') {
+      flex-direction: row;
+    }
+
     button {
-      background-color: var(--color-sage-100);
+      @include gradientTaupe;
       color: white;
       border: none;
       cursor: pointer;
-      width: 6.4rem;
-      height: 6.4rem;
+      width: $back_button-size;
+      height: $back_button-size;
       padding: 0;
       flex: 0 0 auto;
+      border-radius: 0.8rem;
+      transition: box-shadow 0.3s;
+      -webkit-transition: box-shadow 0.3s;
+
+      @include breakpoint('lg') {
+        &:hover {
+          box-shadow: 0 0px 10px 0px var(--color-orange);
+        }
+      }
 
       > img {
         height: 3.2rem;
@@ -135,6 +150,8 @@ $item__padding: 2.4rem;
       flex: 1 1 auto;
       margin: 0;
       color: white;
+      font-size: 1.8rem;
+      font-weight: 300;
     }
   }
 
