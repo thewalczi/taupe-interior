@@ -5,9 +5,12 @@ import { useResize } from '../../../hooks/useResize';
 import { MenuButton } from '../menu-button/MenuButton';
 import styles from './navigation.module.scss';
 import { useOffer } from '../../../hooks/useOffer';
+import useScrollToSection from '../../../hooks/useScrollToSection';
+
+export type NavId = 'about' | 'portfolio' | 'offer' | 'contact';
 
 interface NavItem {
-  id: string;
+  id: NavId;
   label: string;
   customAction?: () => void;
 }
@@ -20,6 +23,7 @@ interface NavigationProps {
 export const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
   const { width } = useResize();
   const { openFile } = useOffer();
+  const { scrollToSection } = useScrollToSection();
 
   const navItems: NavItem[] = [
     {
@@ -45,25 +49,10 @@ export const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
     setIsMenuOpen((prev: boolean) => !prev);
   }, [setIsMenuOpen]);
 
-  const scrollToSection = useCallback((id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false);
-    }
+  const handleNavClick = useCallback((id: NavId) => {
+    scrollToSection(id);
+    setIsMenuOpen(false);
   }, []);
-
-  useEffect(() => {
-    const anchor = window.location.hash;
-    const timeout = setTimeout(() => {
-      const id = anchor.slice(1);
-      scrollToSection(id);
-    }, 500);
-    if (anchor) {
-      timeout;
-    }
-    return () => clearTimeout(timeout);
-  }, [scrollToSection]);
 
   return (
     <>
@@ -73,7 +62,7 @@ export const Navigation = ({ isMenuOpen, setIsMenuOpen }: NavigationProps) => {
           {navItems.map((item: NavItem, i: number) => {
             const { id, label, customAction } = item;
             return (
-              <li key={`${id}_${i}`} onClick={() => (customAction ? customAction() : scrollToSection(id))}>
+              <li key={`${id}_${i}`} onClick={() => (customAction ? customAction() : handleNavClick(id))}>
                 {label}
               </li>
             );

@@ -27,6 +27,8 @@ export const Header = () => {
       }
     };
 
+    //Detect if scroll is performed by navigation - don't show the navbar. Use zustand to keep the state. Reset state when the scroll finishes (Promise based and await after).
+
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);

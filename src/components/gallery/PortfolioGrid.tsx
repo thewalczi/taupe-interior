@@ -1,7 +1,8 @@
-import { FC, useMemo } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 import styles from '../../sections/portfolio/portfolio.module.scss';
-import { PortfolioType } from '../../hooks/useContentful';
+import { PortfolioType, Project } from '../../hooks/useContentful';
 import usePortfolio from '../../store/portfolio.store';
+import useScrollToSection from '../../hooks/useScrollToSection';
 
 interface PortfolioGridProps {
   type: PortfolioType;
@@ -10,10 +11,16 @@ interface PortfolioGridProps {
 export const PortfolioGrid: FC<PortfolioGridProps> = ({ type }) => {
   const projects = usePortfolio((state) => state.projects);
   const selectActiveProject = usePortfolio((state) => state.selectActiveProject);
+  const { scrollToSection } = useScrollToSection();
 
   const getTitle = useMemo(() => (type === 'project' ? 'Projekty' : 'Realizacje'), [type]);
 
   const projectsToDisplay = useMemo(() => projects.filter((project) => project.type === type), [projects]);
+
+  const handleProjectClick = useCallback((project: Project) => {
+    selectActiveProject(project);
+    scrollToSection('portfolio');
+  }, []);
 
   return (
     <>
@@ -23,7 +30,7 @@ export const PortfolioGrid: FC<PortfolioGridProps> = ({ type }) => {
           <div
             className={styles.item}
             key={`${project.id}_${project.title}`}
-            onClick={() => selectActiveProject(project)}
+            onClick={() => handleProjectClick(project)}
             style={{ backgroundImage: `url(${project.images[0].fields.file?.url})` }}
           >
             <span>{project.title}</span>
